@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
+  <title>Weather App</title>
+</head>
+
+<body>
+  <script type="module">
+    import { createApp, reactive, ref } from 'https://unpkg.com/vue@3/dist/vue.esm-browser.js'
+
+    createApp({
+      setup() {
+        const weatherData = ref(undefined);
+        const src = ref(undefined)
+        const onEnter = async ({ target: { value: cityName } }) => {
+          const response = await (await fetch(`http://localhost:3000?cityName=${cityName}`,
+            { method: "GET", "Content-Type": "application/json" })).json()
+          weatherData.value = response;
+          if (!response.error) {
+            const { lat, lon } = weatherData.value;
+            src.value = `https://maps.google.com/maps?q=${lat},${lon}&t=&z=13&ie=UTF8&iwloc=&output=embed`
+          }
+        }
+        const times = [...new Array(24).keys()]
+          .map(time => `${(time + "").padStart(2, "0")}:00`);
+        return { weatherData, oninput, onEnter, times, src }
+      },
+    }).mount('#app')
+  </script>
+
+  <div id="app">
+    <h1>Enter the City Name</h1>
+    <div class="input">
+      <input placeholder="City Name" @input="oninput" type="text" @keyup.enter="onEnter" />
+    </div>
+    <div v-if=weatherData style="display: none;" :id=`weather-data`>
+      <div id="error-message" v-if="weatherData.error">
+        Uhm, that city doesn't exist. Please try again
+      </div>
+      <div v-else id="weather-info">
+        <ul>
+          <li>{{ weatherData.rainDescription }}</li>
+          <li>{{ weatherData.weatherDescription }}</li>
+          <li>{{ weatherData.airPollutionDescription }}</li>
+        </ul>
+        <div class="weather-table">
+          <div>
+            <h3>{{ weatherData.day1.weekday }}</h3>
+            <div class="table">
+              <div class="label">Rain</div>
+              <div class="row-1" v-for="rain in weatherData.day1.rain">{{ rain }}</div>
+              <div class="label">Temperature</div>
+              <div class="row-2" v-for="temp in weatherData.day1.temps">{{ temp }}</div>
+              <div class="label">Wind Speed</div>
+              <div class="row-3" v-for="speed in weatherData.day1.windSpeeds">{{ speed }}</div>
+              <div class="label-last">Time</div>
+              <div class="time row-4" v-for="time in times">{{ time }}</div>
+            </div>
+          </div>
+          <div>
+            <h3>{{ weatherData.day2.weekday }}</h3>
+            <div class="table">
+              <div class="label">Rain</div>
+              <div class="row-1" v-for="rain in weatherData.day2.rain">{{ rain }}</div>
+              <div class="label">Temperature</div>
+              <div class="row-2" v-for="temp in weatherData.day2.temps">{{ temp }}</div>
+              <div class="label">Wind Speed</div>
+              <div class="row-3" v-for="speed in weatherData.day2.windSpeeds">{{ speed }}</div>
+              <div class="label-last">Time</div>
+              <div class="time row-4" v-for="time in times">{{ time }}</div>
+            </div>
+          </div>
+          <div>
+            <h3>{{ weatherData.day3.weekday }}</h3>
+            <div class="table">
+              <div class="label">Rain</div>
+              <div class="row-1" v-for="rain in weatherData.day3.rain">{{ rain }}</div>
+              <div class="label">Temperature</div>
+              <div class="row-2" v-for="temp in weatherData.day3.temps">{{ temp }}</div>
+              <div class="label">Wind Speed</div>
+              <div class="row-3" v-for="speed in weatherData.day3.windSpeeds">{{ speed }}</div>
+              <div class="label-last">Time</div>
+              <div class="time row-4" v-for="time in times">{{ time }}</div>
+            </div>
+          </div>
+          <div>
+            <h3>{{ weatherData.day4.weekday }}</h3>
+            <div class="table">
+              <div class="label">Rain</div>
+              <div class="row-1" v-for="rain in weatherData.day4.rain">{{ rain }}</div>
+              <div class="label">Temperature</div>
+              <div class="row-2" v-for="temp in weatherData.day4.temps">{{ temp }}</div>
+              <div class="label">Wind Speed</div>
+              <div class="row-3" v-for="speed in weatherData.day4.windSpeeds">{{ speed }}</div>
+              <div class="label-last">Time</div>
+              <div class="time row-4" v-for="time in times">{{ time }}</div>
+            </div>
+          </div>
+        </div>
+        <div id="map" style="width: 100%;">
+          <div class="mapouter">
+            <div class="gmap_canvas">
+              <iframe width="747" height="360px" id="gmap_canvas" :src="src" frameborder="0" scrolling="no"
+                marginheight="0" marginwidth="0">
+              </iframe>
+              <a href="https://putlocker-is.org"></a><br>
+              <a href="https://www.embedgooglemap.net"></a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+
+</html>

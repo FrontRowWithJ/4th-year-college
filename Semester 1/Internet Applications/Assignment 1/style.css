@@ -1,0 +1,90 @@
+h3 {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.table {
+  display: grid;
+  grid-template-rows: repeat(4, 1fr);
+  grid-template-columns: repeat(25, 1fr);
+  border: 1px solid black;
+}
+
+[class^="row"] {
+  border-bottom: 1px solid black;
+  display: flex;
+  justify-content: center;
+}
+
+[class^="label"] {
+  border-right: 1px solid black;
+  width: 8rem;
+  border-bottom: 1px solid black;
+  display: flex;
+}
+
+.label-last {
+  border-bottom: none;
+}
+
+.spacer {
+  width: 8rem;
+  height: 1rem;
+}
+
+.time {
+  display: flex;
+  justify-content: center;
+}
+
+h1 {
+  display: flex;
+  justify-content: center;
+}
+.input {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.input input::placeholder {
+  text-align: center;
+}
+
+#weather-data {
+  display: unset !important;
+}
+
+#map {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+#error-message {
+  width: 100%;
+  text-align: center;
+  margin-top: 1rem;
+}
+
+#weather-info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.mapouter {
+  position: relative;
+  text-align: right;
+  height: 360px;
+  width: 747px;
+  margin-top: 1rem
+}
+
+.gmap_canvas {
+  overflow: hidden;
+  height: 360px;
+  width: 747px;
+}

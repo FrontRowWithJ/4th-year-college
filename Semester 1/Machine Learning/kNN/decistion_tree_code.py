@@ -1,0 +1,31 @@
+from sklearn.tree import export_text, plot_tree, DecisionTreeClassifier
+import matplotlib.pyplot as plt
+import numpy as np
+m = 25
+Xtrain = np.linspace(0.0, 1.0, num=m)
+ytrain = np.sign(Xtrain-0.5+np.random.normal(0, 0.2, m))
+Xtrain = Xtrain.reshape(-1, 1)
+model = DecisionTreeClassifier().fit(Xtrain, ytrain)
+Xtest = np.linspace(0.0, 1.0, num=1000).reshape(-1, 1)
+ypred = model.predict(Xtest)
+print(export_text(model))
+plot_tree(model, fontsize=4, impurity=False, class_names=["-1", "+1"])
+plt.show()
+plt.rc("font", size=18)
+plt.rcParams["figure.constrained_layout.use"] = True
+plt.scatter(Xtrain, ytrain, color="red", marker="+")
+plt.plot(Xtest, ypred, color="green")
+plt.xlabel("input x")
+plt.ylabel("output y")
+plt.legend(["predict", "train"])
+plt.show()
+model = DecisionTreeClassifier(max_depth=1).fit(Xtrain, ytrain)
+ypred = model.predict(Xtest)
+plot_tree(model, fontsize=4, impurity=False, class_names=["-1", "+1"])
+plt.show()
+plt.scatter(Xtrain, ytrain, color="red", marker="+")
+plt.plot(Xtest, ypred, color="green")
+plt.xlabel("input x")
+plt.ylabel("output y")
+plt.legend(["predict", "train"])
+plt.show()

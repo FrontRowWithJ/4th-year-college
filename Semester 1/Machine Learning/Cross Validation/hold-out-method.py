@@ -12,3 +12,4 @@ for i in range(6):
     ypred = model.predict(Xtest)
     print("intercept %f, slope %f, square error %f, test_size %f" %
           (model.intercept_, model.coef_, mean_squared_error(ytest, ypred), test_size))
+  

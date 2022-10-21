@@ -9,6 +9,7 @@
 
 # Editor Generated files #
 ##########################
+*.code-workspace
 /.vscode
 
 # Compression methods #
@@ -39,3 +40,10 @@ Release
 *.sln
 freeglut
 glew*
+# node packages #
+#################
+node_modules/
+
+# test files #
+##############
+*test.*

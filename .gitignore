@@ -9,7 +9,7 @@
 
 # Editor Generated files #
 ##########################
-*.code-workspace
+.code-workspace
 /.vscode
 
 # Compression methods #

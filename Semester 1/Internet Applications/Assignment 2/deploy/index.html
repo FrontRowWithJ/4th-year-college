@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
+  <title>Todo List</title>
+</head>
+
+<body>
+  <script type="module">
+    import { createApp, reactive, ref } from 'https://unpkg.com/vue@3/dist/vue.esm-browser.js'
+
+    createApp({
+      setup() {
+        const storageString = localStorage.getItem("todo-list")
+        const data = storageString ? JSON.parse(storageString) : [];
+        const todos = ref(data);
+        const input = ref("");
+        fetch()
+        const oninput = (e, index) => {
+          todos.value[index] = e.target.value;
+          input.value = e.target.value;
+          localStorage.setItem("todo-list", JSON.stringify(todos.value));
+        }
+
+        const insert =
+          (list, val, index) => [...list.slice(0, index), val, ...list.slice(index, list.length)];
+        const addItem = (index) => {
+          todos.value = insert(todos.value, "", index + 1);
+        }
+        const removeItem = (index) => {
+          todos.value.splice(index, 1)
+        }
+
+        const clearList = () => {
+          todos.value = [];
+          localStorage.clear();
+        }
+        return { todos, oninput, input, addItem, removeItem, clearList };
+      }
+
+    }).mount("#app")
+  </script>
+
+  <div id="app">
+    <div v-if="!todos.length">
+      <div @click="()=>addItem(0)">Add Item</div>
+    </div>
+    <div class="todo-item" v-for="(todo, index) in todos">
+      <input type="text" @input="(e) => oninput(e, index)" :value="todo" />
+      <div @click="() => addItem(index)">Add</div>
+      <div @click="() => removeItem(index)">Remove</div>
+    </div>
+    <button type="button" @click="clearList">Clear Todo List</button>
+  </div>
+</body>
+
+</html>

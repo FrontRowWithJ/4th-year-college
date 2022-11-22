@@ -1,5 +1,4 @@
 # id:17--34-17
-from sre_constants import RANGE
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
@@ -29,7 +28,6 @@ legend_elements = [Line2D([0], [0], color="blue", lw=4, label='real +1'),
                    Line2D([0], [0], color="green", lw=4, label='real -1'),
                    Line2D([0], [0], color="yellow", lw=4, label="pred +1"),
                    Line2D([0], [0], color="red", lw=4, label="pred -1")]
-
 
 plt.xlabel("x_1")
 plt.ylabel("x_2")

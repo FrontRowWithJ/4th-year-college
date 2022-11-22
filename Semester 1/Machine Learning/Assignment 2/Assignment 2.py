@@ -43,8 +43,10 @@ xtest_new_features = poly.fit_transform(xtest)
 def plot_model(gen_model, title):
     plt.xlabel("x_1")
     plt.ylabel("x_2")
-    colors = ["brown", "olive", "teal", "navy", "cyan", "red", "green", "yellow", "magenta"]
-    legends = [[Line2D([0], [0], color=color, lw=4, label=C)] for color, C in zip(colors, Cs)]
+    colors = ["brown", "olive", "teal", "navy",
+              "cyan", "red", "green", "yellow", "magenta"]
+    legends = [[Line2D([0], [0], color=color, lw=4, label=C)]
+               for color, C in zip(colors, Cs)]
 
     for color, C, legend, i in zip(colors, Cs, legends, range(len(Cs))):
         fig = plt.figure()
@@ -80,14 +82,10 @@ def cross_validate_C(gen_model):
     plt.show()
 
 
-
-
 # un comment the functions to use them
 
 # cross_validate_C(gen_model=Lasso)
-
 # cross_validate_C(gen_model=Ridge)
-
 plot_model(gen_model=Lasso, title="Lasso Plot")
 
 # plot_model(gen_model=Ridge, title="Ridge Plot")
